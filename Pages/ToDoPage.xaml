@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ToDoFull_CHIZZZ.ToDoPage">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="#EEEBDD">
+            
+            <Button Clicked="Button_AddToDo"
+                    BackgroundColor="#630000"
+                    Text="+"
+                    FontSize="50"
+                    WidthRequest="80"
+                    Margin="40"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
