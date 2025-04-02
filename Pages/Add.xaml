@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ToDoFull_CHIZ2.Add">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="#EEEBDD">
+            <Entry Placeholder="Title"
+                   Margin="20,40,20,0"
+                   x:Name="titleEntry"/>
+            <Entry Placeholder="Details"
+                   Margin="20,0,20,20"
+                   x:Name="descriptionEntry"/>
+            <Button Text="Add"
+                    BackgroundColor="#630000"
+                    WidthRequest="370"
+                    HeightRequest="40"
+                    Clicked="Button_OnClicked"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

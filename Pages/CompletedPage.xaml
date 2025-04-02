@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ToDoFull_CHIZ2.CompletedPage">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="#EEEBDD">
+            <Label Text="Completed Tasks"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   Margin="10"/>
+
+            <ListView ItemsSource="{Binding CompletedTasks}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame Padding="10"
+                                   CornerRadius="5"
+                                   BackgroundColor="White"
+                                   Margin="10"
+                                   MaximumHeightRequest="100"
+                                   HeightRequest="80">
+                                <Label Text="{Binding Title}" 
+                                       FontSize="18" 
+                                       FontAttributes="Bold"/>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

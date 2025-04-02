@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ToDoFull_CHIZ2.SignInPage">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="#EEEBDD">
+            <Image Source="todo.svg" ScaleX="0.7" ScaleY="0.7"/>
+            <Entry Placeholder="Email" WidthRequest="350" Margin="5" PlaceholderColor="DimGray" Keyboard="Email" ReturnType="Next"/>
+            <Entry Placeholder="Password" WidthRequest="350" Margin="5" PlaceholderColor="DimGray" Keyboard="Text" IsPassword="True" ReturnType="Next"/>
+            <Button Text="Sign In" Clicked="Button_SignIn" BackgroundColor="#630000" WidthRequest="350" Margin="5" FontAttributes="Bold"/>
+            <Button Text="Sign Up" Clicked="Button_SignUp" BackgroundColor="#A8766F" WidthRequest="350" Margin="5" FontAttributes="Bold"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
