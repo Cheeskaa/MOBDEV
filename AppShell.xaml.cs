@@ -1,4 +1,4 @@
-﻿namespace ToDoFull_CHIZ2;
+﻿namespace MauiApp9;
 
 public partial class AppShell : Shell
 {

@@ -1,4 +1,4 @@
-﻿namespace ToDoFull_CHIZ2;
+﻿namespace MauiApp9;
 
 public partial class App : Application
 {
@@ -9,6 +9,7 @@ public partial class App : Application
 
     protected override Window CreateWindow(IActivationState? activationState)
     {
-        return new Window(new NavigationPage(new SignUpPage()));
+        var window = new Window(new AppShell());
+        return window;
     }
 }

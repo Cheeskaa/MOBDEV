@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp9.AddTodoPage"
+             BackgroundColor="#EEEBDD">
+    <Grid RowDefinitions="*, Auto" Padding="20" RowSpacing="20">
+
+        <!-- Form Content -->
+        <VerticalStackLayout Grid.Row="0" Spacing="20">
+
+            <!-- Title Entry -->
+            <Entry x:Name="TitleEntry"
+                   Placeholder="Enter task title"
+                   BackgroundColor="White"
+                   HeightRequest="50"
+                   TextColor="Black" />
+
+            <!-- Description Field (use Editor instead of Entry) -->
+            <Editor x:Name="DescriptionEntry"
+                    Placeholder="Description"
+                    BackgroundColor="White"
+                    HeightRequest="150"
+                    TextColor="Black"
+                    AutoSize="TextChanges" />   
+
+
+            <!-- Save Button -->
+            <Button Text="Add"
+                    BackgroundColor="#8C1A11"
+                    TextColor="Black"
+                    Clicked="OnSaveClicked" />
+
+        </VerticalStackLayout>
+
+        <!-- Bottom Navigation -->
+        <Grid Grid.Row="1" ColumnDefinitions="*,*,*" 
+              BackgroundColor="#E6B9A2"
+              VerticalOptions="End"
+              Padding="0,8">
+            <ImageButton Source="list.png" 
+                         Grid.Column="0" 
+                         HorizontalOptions="Center"
+                         HeightRequest="24" 
+                         WidthRequest="24" 
+                         BackgroundColor="Transparent" />
+
+            <ImageButton Source="check.png" 
+                         Grid.Column="1" 
+                         HorizontalOptions="Center"
+                         HeightRequest="24" 
+                         WidthRequest="24"
+                         BackgroundColor="Transparent" />
+
+            <ImageButton Source="profile.png" 
+                         Grid.Column="2" 
+                         HorizontalOptions="Center"
+                         HeightRequest="24" 
+                         WidthRequest="24"
+                         BackgroundColor="Transparent" />
+        </Grid>
+
+    </Grid>
+</ContentPage>
