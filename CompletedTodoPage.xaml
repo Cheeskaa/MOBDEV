@@ -6,10 +6,21 @@
              x:Class="MauiApp9.CompletedTodoPage"
              x:DataType="local:CompletedTodoPage"
              BackgroundColor="#EEEBDD">
-    <Grid RowDefinitions="*, Auto">
+    <Grid RowDefinitions="Auto, *, Auto">
+        <Grid Grid.Row="0"
+              BackgroundColor="#D8AA96"  
+              Padding="10,30,0,10">      
+
+            <Label Text="Completed"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="Black"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+        </Grid>
 
         <!-- Main Content -->
-        <Grid Grid.Row="0" Margin="20">
+        <Grid Grid.Row="1" Margin="20">
             <!-- Changed VerticalOptions from "FillAndExpand" to "Fill" -->
             <ListView x:Name="CompletedTodoListView"
                       ItemsSource="{Binding CompletedTasks}"

@@ -12,6 +12,8 @@ public class TodoService
     // Collection for tasks that are still pending
     public static ObservableCollection<TodoItem> PendingTasks { get; set; } = new ObservableCollection<TodoItem>();
 
+    public static TodoItem? SelectedItem { get; set; }
+
     // Collection for tasks that have been completed
     public static ObservableCollection<TodoItem> CompletedTasks { get; set; } = new ObservableCollection<TodoItem>();
 }

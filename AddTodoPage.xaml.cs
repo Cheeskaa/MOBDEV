@@ -18,16 +18,20 @@ public partial class AddTodoPage : ContentPage
     private async void OnSaveClicked(object sender, EventArgs e)
     {
         string title = TitleEntry.Text;
+        string description = DescriptionEntry.Text;
 
         if (!string.IsNullOrWhiteSpace(title))
         {
             TodoService.PendingTasks.Add(new TodoItem
             {
                 Title = title,
+                Description = description,
                 IsCompleted = false
             });
         }
-
+        // Clear the TitleEntry after saving the task
+        TitleEntry.Text = string.Empty;
+        DescriptionEntry.Text = string.Empty;
         await Shell.Current.GoToAsync("//TodoPage");
     }
 }

@@ -4,46 +4,61 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Microsoft.Maui.Controls;
+using System.Collections.ObjectModel;
 
 namespace MauiApp9;
 
 public partial class EditTodoPage : ContentPage
 {
+    public TodoItem EditingItem { get; set; }
+
     public EditTodoPage()
     {
         InitializeComponent();
-        BindingContext = this;
+        LoadSelectedItem();
     }
 
-    // Update button handler
+    private void LoadSelectedItem()
+    {
+        if (TodoService.SelectedItem != null)
+        {
+            EditingItem = TodoService.SelectedItem;
+            TitleEntry.Text = EditingItem.Title;
+            DescriptionEntry.Text = EditingItem.Description;
+        }
+    }
+
     private async void OnUpdateClicked(object sender, EventArgs e)
     {
-        // TODO: Implement updating logic
-        // e.g. update the TitleEntry, DescriptionEntry in your data model
+        if (EditingItem != null)
+        {
+            EditingItem.Title = TitleEntry.Text;
+            EditingItem.Description = DescriptionEntry.Text;
+        }
 
-        // Navigate back to TodoPage
         await Shell.Current.GoToAsync("//TodoPage");
     }
 
-    // Complete button handler
     private async void OnCompleteClicked(object sender, EventArgs e)
     {
-        // TODO: Mark the current item as completed in your data
-        // For example:
-        //   TodoService.PendingTasks.Remove(selectedItem);
-        //   TodoService.CompletedTasks.Add(selectedItem);
+        if (EditingItem != null)
+        {
+            TodoService.PendingTasks.Remove(EditingItem);
+            EditingItem.IsCompleted = true;
+            TodoService.CompletedTasks.Add(EditingItem);
+        }
 
-        // Navigate to CompletedTodoPage
         await Shell.Current.GoToAsync("//CompletedTodoPage");
     }
 
-    // Delete button handler
     private async void OnDeleteClicked(object sender, EventArgs e)
     {
-        // TODO: Remove the current item from your data
-        // e.g. TodoService.PendingTasks.Remove(selectedItem);
+        if (EditingItem != null)
+        {
+            TodoService.PendingTasks.Remove(EditingItem);
+        }
 
-        // Navigate back to TodoPage or show some confirmation
         await Shell.Current.GoToAsync("//TodoPage");
     }
 

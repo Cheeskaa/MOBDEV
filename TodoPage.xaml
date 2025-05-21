@@ -6,10 +6,27 @@
              x:Class="MauiApp9.TodoPage"
              x:DataType="local:TodoPage"
              BackgroundColor="#EEEBDD">
-    <Grid RowDefinitions="*, Auto">
+    <Grid RowDefinitions="Auto, *, Auto">
+        <Grid Grid.Row="0"
+              BackgroundColor="#D8AA96"  
+              Padding="10,30,0,10">      
 
+            <Label Text="Tasks"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="Black"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+        </Grid>
+
+        
         <!-- Main Content -->
-        <Grid Grid.Row="0" Margin="20">
+        <Grid Grid.Row="1" Margin="20">
+            <Label x:Name="NoTasksLabel"
+                   Text="No tasks available."
+                   IsVisible="False"
+                   HorizontalOptions="Center"
+                   VerticalOptions="CenterAndExpand" />
             <ListView x:Name="TodoListView"
                       ItemsSource="{Binding Tasks}"
                       HasUnevenRows="True"
@@ -71,27 +88,27 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            
+            <Button Text="+" 
+                    BackgroundColor="#8C1A11"
+                    TextColor="black"
+                    CornerRadius="30"
+                    HeightRequest="60"
+                    WidthRequest="60"
+                    FontSize="28"
+                    Clicked="OnAddTaskClicked"
+                    BorderWidth="0"
+                    Padding="0"
+                    HorizontalOptions="End"
+                    VerticalOptions="End"
+                    Margin="0, 0, 10, 10"/>
         </Grid>
 
         <!-- Floating Add Task Button -->
-        <Grid HorizontalOptions="End" VerticalOptions="End" Padding="0,0,20,20">
-            <Grid>
-                <BoxView Color="Gray" Opacity="0.3" Margin="0,0,0,4" HeightRequest="10"/>
-                <Button Text="+" 
-                        BackgroundColor="#8C1A11"
-                        TextColor="black"
-                        CornerRadius="30"
-                        HeightRequest="60"
-                        WidthRequest="60"
-                        FontSize="28"
-                        Clicked="OnAddTaskClicked"
-                        BorderWidth="0"
-                        Padding="0"/>
-            </Grid>
-        </Grid>
+        
 
         <!-- Bottom Navigation -->
-        <Grid Grid.Row="1" ColumnDefinitions="*,*,*" 
+        <Grid Grid.Row="3" ColumnDefinitions="*,*,*" 
               BackgroundColor="#E6B9A2"
               VerticalOptions="End"
               Padding="0,8">

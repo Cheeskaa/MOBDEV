@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using System.ComponentModel;
 
 namespace MauiApp9;
 
@@ -18,15 +19,15 @@ public partial class TodoPage : ContentPage
 
             // Use the global pending tasks collection
             Tasks = TodoService.PendingTasks;
-
+            Tasks.CollectionChanged += (sender, args) => UpdateNoTasksMessage();
             // For demonstration, add some initial tasks if the list is empty
-            if (Tasks.Count == 0)
-            {
-                Tasks.Add(new TodoItem { Title = "Watch me Whip 1", IsCompleted = false });
-                Tasks.Add(new TodoItem { Title = "Watch me Nae Nae", IsCompleted = false });
-            }
+            UpdateNoTasksMessage();
 
             BindingContext = this;
+        }
+        private void UpdateNoTasksMessage()
+        {
+            NoTasksLabel.IsVisible = Tasks.Count == 0;
         }
 
         private async void OnAddTaskClicked(object sender, EventArgs e)
@@ -37,18 +38,9 @@ public partial class TodoPage : ContentPage
 
         private void OnDeleteTaskClicked(object sender, EventArgs e)
         {
-            if (sender is TapGestureRecognizer tapGesture && tapGesture.CommandParameter is TodoItem taskToDelete)
+            if (sender is VisualElement element && element.BindingContext is TodoItem taskToDelete)
             {
-                // Instead of App.Current.MainPage.DisplayAlert(...)
-                // we can just remove the item or show a quick alert:
-
-                // 1) Remove the item
                 Tasks.Remove(taskToDelete);
-
-                // 2) Possibly show an alert using `this` or `Shell.Current`:
-                this.DisplayAlert("Deleted", $"Deleted {taskToDelete.Title}", "OK");
-                // or
-                // Shell.Current.DisplayAlert("Deleted", $"Deleted {taskToDelete.Title}", "OK");
             }
         }
 
@@ -74,11 +66,11 @@ public partial class TodoPage : ContentPage
         {
             if (sender is VisualElement visualElement && visualElement.BindingContext is TodoItem tappedItem)
             {
-                // Navigate to the EditTodoPage
-                var route = $"//EditTodoPage?SelectedTask={Uri.EscapeDataString(tappedItem.Title)}";
-                await Shell.Current.GoToAsync(route);
+                TodoService.SelectedItem = tappedItem;
+                await Shell.Current.GoToAsync("//EditTodoPage");
             }
         }
+
 
         // Navigate to the CompletedTodoPage when the check icon is tapped
         private async void OnCheckClicked(object sender, EventArgs e)
@@ -92,15 +84,59 @@ public partial class TodoPage : ContentPage
         }
     }
 
-    public class TodoItem
-    {
-        // Fix #1: Provide a default value to avoid CS8618
-        public string Title { get; set; } = string.Empty;
+public class TodoItem : INotifyPropertyChanged
+{
+    private string title = string.Empty;
+    private string description = string.Empty;
+    private bool isCompleted;
 
-        public bool IsCompleted { get; set; }
-        public ICommand DeleteCommand => new Command(() =>
+    public string Title
+    {
+        get => title;
+        set
         {
-            // If you are sure Shell is not null:
-            Shell.Current.DisplayAlert("Delete", $"Delete {Title}?", "OK");
-        });
+            if (title != value)
+            {
+                title = value;
+                OnPropertyChanged(nameof(Title));
+            }
+        }
+    }
+
+    public string Description
+    {
+        get => description;
+        set
+        {
+            if (description != value)
+            {
+                description = value;
+                OnPropertyChanged(nameof(Description));
+            }
+        }
+    }
+
+    public bool IsCompleted
+    {
+        get => isCompleted;
+        set
+        {
+            if (isCompleted != value)
+            {
+                isCompleted = value;
+                OnPropertyChanged(nameof(IsCompleted));
+            }
+        }
+    }
+
+    public ICommand DeleteCommand => new Command(() =>
+    {
+        Shell.Current.DisplayAlert("Delete", $"Delete {Title}?", "OK");
+    });
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    protected void OnPropertyChanged(string propertyName) =>
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
 }
